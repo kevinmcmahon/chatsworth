@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Chatsworth.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Server" Type="System.String" Scope="User">
+      <Value Profile="(Default)">gmail.com</Value>
+    </Setting>
+    <Setting Name="ConnectServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">talk.google.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
