@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Commands\AliasCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="DataAccess\DbPersistenceProvider.cs" />
     <Compile Include="IMemberDirectory.cs" />
     <Compile Include="MemberDirectory.cs" />
     <Compile Include="IMessageProcessor.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="MessageProcessor.cs" />
     <Compile Include="DataAccess\PersistenceProviderTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestMessageHandlerArgs.cs" />
+    <Compile Include="OnMessageHandlerArgs.cs" />
     <Compile Include="XMPPCommunicator.cs" />
     <Compile Include="ServerInfo.cs" />
   </ItemGroup>

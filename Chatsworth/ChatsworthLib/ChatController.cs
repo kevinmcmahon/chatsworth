@@ -13,13 +13,13 @@ namespace ChatsworthLib
 
         public void Start()
         {
-            _communicator.OnRequestMessage += xmpp_OnRequestMessage;
+            _communicator.OnMessage += xmpp_OnRequestMessage;
             _communicator.OpenConnection();
         }
 
         public void Stop()
         {
-            _communicator.OnRequestMessage += xmpp_OnRequestMessage;
+            _communicator.OnMessage += xmpp_OnRequestMessage;
         }
 
         public void SendMessage(string jid, string message)
@@ -27,7 +27,7 @@ namespace ChatsworthLib
             _communicator.SendMessage(jid, message);
         }
 
-        private void xmpp_OnRequestMessage(object sender, RequestMessageHandlerArgs args)
+        private void xmpp_OnRequestMessage(object sender, OnMessageHandlerArgs args)
         {
             if (_messageProcessor != null)
             {

@@ -3,9 +3,9 @@
     public interface ICommunicator
     {
         void SendMessage(string to, string message);
-        event OnRequestMessageHandler OnRequestMessage;
+        event OnRequestMessageHandler OnMessage;
         void OpenConnection();
     }
 
-    public delegate void OnRequestMessageHandler(object sender, RequestMessageHandlerArgs args);
+    public delegate void OnRequestMessageHandler(object sender, OnMessageHandlerArgs args);
 }

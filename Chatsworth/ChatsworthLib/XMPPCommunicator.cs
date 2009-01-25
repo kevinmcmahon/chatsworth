@@ -1,6 +1,7 @@
 ﻿using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
+using agsXMPP.protocol.extensions.chatstates;
 using log4net;
 
 namespace ChatsworthLib
@@ -18,6 +19,7 @@ namespace ChatsworthLib
                            ConnectServer = connectionInfo.ConnectServer,
                            Username = connectionInfo.Username,
                            Password = connectionInfo.Password,
+                           KeepAlive = true,
                            UseStartTLS = true,
                            SocketConnectionType = SocketConnectionType.Direct
                        };
@@ -65,13 +67,18 @@ namespace ChatsworthLib
             if (log.IsDebugEnabled)
                 log.Debug(string.Format("{0} - {1}", msg.Type, msg.Body));
 
-            if (msg.Type == MessageType.chat)
+            if (ShouldHandleMessage(msg))
             {
-                OnRequestMessage(this, new RequestMessageHandlerArgs(msg));
+                OnMessage(this, new OnMessageHandlerArgs(msg));
             }
         }
 
-        public event OnRequestMessageHandler OnRequestMessage;
+        private bool ShouldHandleMessage(Message msg)
+        {
+            return msg.Type == MessageType.chat && !string.IsNullOrEmpty(msg.Body);
+        }
+
+        public event OnRequestMessageHandler OnMessage;
 
         public void SendMessage(string jid, string message)
         {

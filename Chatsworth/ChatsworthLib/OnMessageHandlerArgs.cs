@@ -3,9 +3,9 @@ using agsXMPP.protocol.client;
 
 namespace ChatsworthLib
 {
-    public class RequestMessageHandlerArgs : EventArgs
+    public class OnMessageHandlerArgs : EventArgs
     {
-        public RequestMessageHandlerArgs(Message msg)
+        public OnMessageHandlerArgs(Message msg)
         {
             Message = msg;
         }
