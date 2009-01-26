@@ -66,7 +66,6 @@
   <ItemGroup>
     <Compile Include="Commands\AliasCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
-    <Compile Include="DataAccess\DbPersistenceProvider.cs" />
     <Compile Include="IMemberDirectory.cs" />
     <Compile Include="MemberDirectory.cs" />
     <Compile Include="IMessageProcessor.cs" />
