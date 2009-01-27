@@ -6,12 +6,12 @@ namespace ChatsworthLib.Commands
     public class AliasCommand : ICommand
     {
         private readonly ICommunicator _communicator;
-        private readonly MemberDirectory _directory;
+        private readonly IMemberDirectory _directory;
 
-        public AliasCommand(ICommunicator _communicator, MemberDirectory _directory)
+        public AliasCommand(ICommunicator communicator, IMemberDirectory directory)
         {
-            this._communicator = _communicator;
-            this._directory = _directory;
+            _communicator = communicator;
+            _directory = directory;
         }
 
         public void Execute(Message message)

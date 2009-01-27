@@ -7,9 +7,9 @@ namespace ChatsworthLib.Commands
     public class ListCommand : ICommand
     {
         private readonly ICommunicator _communicator;
-        private readonly MemberDirectory _directory;
+        private readonly IMemberDirectory _directory;
 
-        public ListCommand(ICommunicator communicator, MemberDirectory directory)
+        public ListCommand(ICommunicator communicator, IMemberDirectory directory)
         {
             _directory = directory;
             _communicator = communicator;

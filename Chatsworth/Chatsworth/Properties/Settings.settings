@@ -8,5 +8,11 @@
     <Setting Name="ConnectServer" Type="System.String" Scope="User">
       <Value Profile="(Default)">talk.google.com</Value>
     </Setting>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

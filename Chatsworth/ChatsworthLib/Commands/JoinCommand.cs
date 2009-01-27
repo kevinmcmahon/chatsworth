@@ -6,9 +6,9 @@ namespace ChatsworthLib.Commands
     public class JoinCommand : ICommand
     {
         private readonly ICommunicator _communicator;
-        private readonly MemberDirectory _directory;
+        private readonly IMemberDirectory _directory;
 
-        public JoinCommand(ICommunicator communicator, MemberDirectory directory)
+        public JoinCommand(ICommunicator communicator, IMemberDirectory directory)
         {
             _communicator = communicator;
             _directory = directory;

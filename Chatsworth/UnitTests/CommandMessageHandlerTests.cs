@@ -1,7 +1,9 @@
 ﻿using agsXMPP.protocol.client;
+using ChatsworthLib;
 using ChatsworthLib.Commands;
 using ChatsworthLib.MessageHandlers;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace UnitTests
 {
@@ -9,11 +11,16 @@ namespace UnitTests
     public class CommandMessageHandlerTests
     {
         CommandMessageHandler handler;
+        ICommunicator communicator;
+        IMemberDirectory directory;
+        MockRepository mocks = new MockRepository();
 
         [SetUp]
         public void SetUp()
         {
-            handler = new CommandMessageHandler(new ICommand[] {new JoinCommand()});
+            communicator = mocks.DynamicMock<ICommunicator>();
+            directory = mocks.DynamicMock<IMemberDirectory>();
+            handler = new CommandMessageHandler(new ICommand[] {new JoinCommand(communicator, directory)});
         }
 
         [Test]

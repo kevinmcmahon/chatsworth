@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AliasCommand.cs" />
+    <Compile Include="Commands\LeaveCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="IMemberDirectory.cs" />
     <Compile Include="MemberDirectory.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OnMessageHandlerArgs.cs" />
     <Compile Include="XMPPCommunicator.cs" />
-    <Compile Include="ServerInfo.cs" />
+    <Compile Include="Entity\ServerConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="log4net.config">

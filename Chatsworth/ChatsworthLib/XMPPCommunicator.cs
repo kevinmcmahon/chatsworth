@@ -1,7 +1,6 @@
 ﻿using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.extensions.chatstates;
 using log4net;
 
 namespace ChatsworthLib
@@ -9,25 +8,28 @@ namespace ChatsworthLib
     public class XMPPCommunicator : ICommunicator
     {
         private static readonly ILog log = LogManager.GetLogger("ChatsworthLib.Logger");
-        private readonly XmppClientConnection xmpp;
+        private XmppClientConnection xmpp;
 
-        public XMPPCommunicator(ServerInfo connectionInfo)
+        public void Configure(ServerConfiguration configuration)
         {
             xmpp = new XmppClientConnection
                        {
-                           Server = connectionInfo.Server,
-                           ConnectServer = connectionInfo.ConnectServer,
-                           Username = connectionInfo.Username,
-                           Password = connectionInfo.Password,
+                           Server = configuration.Server,
+                           Username = configuration.Username,
+                           Password = configuration.Password,
                            KeepAlive = true,
                            UseStartTLS = true,
-                           SocketConnectionType = SocketConnectionType.Direct
+                           SocketConnectionType = SocketConnectionType.Direct,
+                           AutoResolveConnectServer = true
                        };
+
             xmpp.OnMessage += xmpp_OnMessage;
             xmpp.OnReadXml += xmpp_OnReadXml;
             xmpp.OnWriteXml += xmpp_OnWriteXml;
             xmpp.OnLogin += xmpp_OnLogin;
             xmpp.OnAuthError += xmpp_OnAuthError;
+            xmpp.OnSocketError += xmpp_OnError;
+            xmpp.OnError += xmpp_OnError;
         }
 
         public void OpenConnection()
@@ -35,12 +37,6 @@ namespace ChatsworthLib
             if (log.IsDebugEnabled)
                 log.Debug("Attempting to open connection.");
             xmpp.Open();
-        }
-
-        private void xmpp_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
-        {
-            if (log.IsDebugEnabled)
-                log.Debug("Authorization Error");
         }
 
         private void xmpp_OnLogin(object sender)
@@ -71,6 +67,18 @@ namespace ChatsworthLib
             {
                 OnMessage(this, new OnMessageHandlerArgs(msg));
             }
+        }
+
+        private void xmpp_OnError(object sender, System.Exception ex)
+        {
+            if (log.IsErrorEnabled)
+                log.Debug(string.Format("Error Occurred. {0} - {1}", ex.Message, ex.StackTrace));
+        }
+
+        private void xmpp_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            if (log.IsDebugEnabled)
+                log.Debug("Authorization Error");
         }
 
         private bool ShouldHandleMessage(Message msg)
