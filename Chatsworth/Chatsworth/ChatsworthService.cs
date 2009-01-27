@@ -15,20 +15,29 @@ namespace Chatsworth
 
         protected override void OnStart(string[] args)
         {
-            var configuration = new ServerConfiguration(Settings.Default.Server, Settings.Default.Username,
-                                                        Settings.Default.Password);
-
-            var communicator = ServiceLocator.Retrieve<ICommunicator>();
-            communicator.Configure(configuration);
-
-            controller = ServiceLocator.Retrieve<ChatController>();
-            controller.Start();
+            ConfigureCommunicator();
+            StartServer();
         }
 
         protected override void OnStop()
         {
             if (controller != null)
                 controller.Stop();
+        }
+
+        private void ConfigureCommunicator()
+        {
+            var configuration = new ServerConfiguration(Settings.Default.Server, Settings.Default.Username,
+                                                        Settings.Default.Password);
+
+            var communicator = ServiceLocator.Retrieve<ICommunicator>();
+            communicator.Configure(configuration);
+        }
+
+        private void StartServer()
+        {
+            controller = ServiceLocator.Retrieve<ChatController>();
+            controller.Start();
         }
     }
 }
