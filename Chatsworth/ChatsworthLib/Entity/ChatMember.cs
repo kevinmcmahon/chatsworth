@@ -24,5 +24,10 @@ namespace ChatsworthLib.Entity
         {
             return this.Find(x => x.Jid == jid);
         }
+
+        public ChatMember FindByAlias(string alias)
+        {
+            return this.Find(x => x.Alias == alias);
+        }
     }
 }

@@ -64,9 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandProcessor.cs" />
     <Compile Include="Commands\AliasCommand.cs" />
     <Compile Include="Commands\LeaveCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="Commands\WhisperCommand.cs" />
     <Compile Include="IMemberDirectory.cs" />
     <Compile Include="MemberDirectory.cs" />
     <Compile Include="IMessageProcessor.cs" />
