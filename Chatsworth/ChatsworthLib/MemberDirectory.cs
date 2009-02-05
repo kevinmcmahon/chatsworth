@@ -74,7 +74,7 @@ namespace ChatsworthLib
 
         public ChatMemberCollection GetToListForSubscriber(string jid)
         {
-            return _subscribers.FindAll(x => x.Jid != jid) as ChatMemberCollection;
+            return new ChatMemberCollection(_subscribers.FindAll(x => x.Jid != jid));
         }
 
         public ChatMember LookUp(string jid)

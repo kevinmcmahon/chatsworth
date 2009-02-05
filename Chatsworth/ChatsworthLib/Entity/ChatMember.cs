@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ChatsworthLib.Entity
 {
@@ -23,15 +22,12 @@ namespace ChatsworthLib.Entity
 
     public class ChatMemberCollection : List<ChatMember>
     {
+        public ChatMemberCollection() {}
+
         public ChatMemberCollection(IEnumerable<ChatMember> list)
         {
             base.Clear();
             base.AddRange(list);
-        }
-
-        public ChatMemberCollection()
-        {
-            
         }
 
         public ChatMember FindByJid(string jid)

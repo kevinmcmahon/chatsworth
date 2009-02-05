@@ -10,9 +10,7 @@ namespace ChatsworthLib.Entity
         {
             WithTable("ChatMember");
 
-            Id(x => x.Id)
-                .GeneratedBy
-                .Identity();
+            Id(x => x.Id).GeneratedBy.Identity();
 
             Map(x => x.Jid)
                 .CanNotBeNull();
