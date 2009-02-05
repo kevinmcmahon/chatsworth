@@ -123,9 +123,6 @@
     <Compile Include="Entity\ServerConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="chatsworthdb.s3db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
