@@ -17,9 +17,12 @@ namespace ChatsworthLib.Commands
         public void Execute(Message message)
         {
             string response = "";
-            if (!_directory.ChatSubscribers.Exists(x => x.Jid == message.From.Bare))
+            
+            ChatMember from = _directory.LookUp(message.From.Bare);
+
+            if (from == null)
             {
-                _directory.ChatSubscribers.Add(new ChatMember(message.From.Bare));
+                _directory.AddSubscriber(message.From.Bare);
                 response = "You've joined the chat.";
             }
             else

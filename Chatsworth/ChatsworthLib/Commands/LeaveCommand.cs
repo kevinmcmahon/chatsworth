@@ -15,8 +15,7 @@ namespace ChatsworthLib.Commands
 
         public void Execute(Message message)
         {
-            int count = _directory.ChatSubscribers.RemoveAll(x => x.Jid == message.From.Bare);
-            if (count > 0)
+            if(_directory.RemoveSubscriber(message.From.Bare))
             {
                 _communicator.SendMessage(message.From.Bare,"You have left the chat.");
             }

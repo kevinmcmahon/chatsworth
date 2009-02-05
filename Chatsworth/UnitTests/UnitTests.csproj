@@ -48,6 +48,7 @@
       <HintPath>..\..\ExternalDependencies\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -63,6 +64,7 @@
   <ItemGroup>
     <Compile Include="ChatMemberTests.cs" />
     <Compile Include="CommandMessageHandlerTests.cs" />
+    <Compile Include="DbPersistenceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlPersistenceProviderTest.cs" />
   </ItemGroup>

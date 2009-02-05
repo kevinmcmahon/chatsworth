@@ -23,19 +23,19 @@ namespace UnitTests
             handler = new CommandMessageHandler(new ICommand[] {new JoinCommand(communicator, directory)});
         }
 
-        [Test]
-        public void can_extract_first_word()
-        {
-            string result = handler.ExtractFirstWord("/this is a test");
-            Assert.IsTrue(result == "/this");      
-        }
+        //[Test]
+        //public void can_extract_first_word()
+        //{
+        //    string result = handler.ExtractFirstWord("/this is a test");
+        //    Assert.IsTrue(result == "/this");      
+        //}
 
-        [Test]
-        public void can_handle_null_passed_to_extract_message()
-        {
-            string result = handler.ExtractFirstWord(null);
-            Assert.IsTrue(result == string.Empty);           
-        }
+        //[Test]
+        //public void can_handle_null_passed_to_extract_message()
+        //{
+        //    string result = handler.ExtractFirstWord(null);
+        //    Assert.IsTrue(result == string.Empty);           
+        //}
 
         [Test]
         public void can_recognize_commands()

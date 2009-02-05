@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using agsXMPP.protocol.client;
 using ChatsworthLib.Entity;
 
@@ -30,8 +31,12 @@ namespace ChatsworthLib.Commands
 
         private string GetAlias(string jid)
         {
-            ChatMember member = _directory.ChatSubscribers.Find(jid);
-            return member.Alias;
+            if(string.IsNullOrEmpty(jid))
+                throw new ArgumentNullException("jid","Jid cannot be null or empty.");
+
+            ChatMember member = _directory.LookUp(jid);
+
+            return member != null ? member.Alias : string.Empty;
         }
 
         private WhisperMessageData ProcessWhisper(Message message)
@@ -53,7 +58,7 @@ namespace ChatsworthLib.Commands
 
         private string GetRecipient(string alias)
         {
-            ChatMember member = _directory.ChatSubscribers.FindByAlias(alias);
+            ChatMember member = _directory.LookUpByAlias(alias);
             return member.Jid;
         }
 

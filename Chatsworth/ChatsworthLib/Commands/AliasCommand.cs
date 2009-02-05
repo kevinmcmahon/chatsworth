@@ -16,23 +16,23 @@ namespace ChatsworthLib.Commands
 
         public void Execute(Message message)
         {
-            ChatMember member = _directory.ChatSubscribers.Find(message.From.Bare);
-            if (member == null)
+            ChatMember fromMember = _directory.LookUp(message.From.Bare);
+            if (fromMember == null)
                 return;
 
             string alias = ExtractAlias(message.Body);
 
             if (string.IsNullOrEmpty(alias))
             {
-                _communicator.SendMessage(member.Jid, "usage: /alias <NEW_ALIAS_WITH_NO_SPACES>");
+                _communicator.SendMessage(fromMember.Jid, "usage: /alias <NEW_ALIAS_WITH_NO_SPACES>");
             }
             else
             {
-                member.Alias = alias;
-                foreach (var chatMember in _directory.ChatSubscribers)
+                fromMember.Alias = alias;
+                foreach (var chatMember in _directory.GetToListForSubscriber(fromMember.Jid))
                 {
                     _communicator.SendMessage(chatMember.Jid,
-                                       string.Format("{0} is now known as {1}", member.Jid, member.Alias));
+                                       string.Format("{0} is now known as {1}", fromMember.Jid, fromMember.Alias));
                 }
             }
         }

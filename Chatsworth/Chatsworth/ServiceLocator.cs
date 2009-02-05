@@ -30,5 +30,10 @@ namespace Chatsworth
         {
             _unityContainer.RegisterInstance(instance);
         }
+
+        public static void RegisterInstance<T>(string name, T instance)
+        {
+            _unityContainer.RegisterInstance(name, instance);
+        }
     }
 }

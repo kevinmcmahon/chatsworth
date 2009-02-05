@@ -17,11 +17,11 @@ namespace ChatsworthLib.Commands
 
         public void Execute(Message message)
         {
-            ChatMember member = _directory.ChatSubscribers.Find(message.From.Bare);
+            ChatMember member = _directory.LookUp(message.From.Bare);
             if (member == null)
                 return;
             var sb = new StringBuilder();
-            foreach (var chatMember in _directory.ChatSubscribers)
+            foreach (var chatMember in _directory.GetAllSubscribers())
             {
                 sb.AppendLine(string.Format("{0} {1}", chatMember.Jid,
                                             chatMember.HasAlias ? "("+chatMember.Alias+")" : string.Empty));

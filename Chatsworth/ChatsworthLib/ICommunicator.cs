@@ -1,4 +1,6 @@
-﻿namespace ChatsworthLib
+﻿using ChatsworthLib.Entity;
+
+namespace ChatsworthLib
 {
     public interface ICommunicator
     {

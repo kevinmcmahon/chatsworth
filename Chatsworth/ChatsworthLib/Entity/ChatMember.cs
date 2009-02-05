@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ChatsworthLib.Entity
 {
@@ -13,16 +14,29 @@ namespace ChatsworthLib.Entity
             Alias = string.IsNullOrEmpty(alias) ? jid : alias;
         }
 
+        public int Id { get; set; }
         public string Jid { get; set; }
         public string Alias { get; set; }
+
         public bool HasAlias { get { return Jid != Alias;} }
     }
 
     public class ChatMemberCollection : List<ChatMember>
     {
-        public ChatMember Find(string jid)
+        public ChatMemberCollection(IEnumerable<ChatMember> list)
         {
-            return this.Find(x => x.Jid == jid);
+            base.Clear();
+            base.AddRange(list);
+        }
+
+        public ChatMemberCollection()
+        {
+            
+        }
+
+        public ChatMember FindByJid(string jid)
+        {
+            return Find(x => x.Jid == jid);
         }
 
         public ChatMember FindByAlias(string alias)

@@ -70,5 +70,17 @@ namespace Chatsworth.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ChatsworthLib")]
+        public string MappingAssembly {
+            get {
+                return ((string)(this["MappingAssembly"]));
+            }
+            set {
+                this["MappingAssembly"] = value;
+            }
+        }
     }
 }

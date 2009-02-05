@@ -10,9 +10,9 @@ namespace Chatsworth
         private static void Main()
         {
             var ServicesToRun = new ServiceBase[]
-                                              {
-                                                  new ChatsworthService()
-                                              };
+                                    {
+                                        new ChatsworthService()
+                                    };
             ServiceBase.Run(ServicesToRun);
         }
     }

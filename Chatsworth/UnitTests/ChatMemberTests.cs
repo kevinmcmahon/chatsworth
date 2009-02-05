@@ -1,5 +1,4 @@
-﻿using ChatsworthLib;
-using ChatsworthLib.Entity;
+﻿using ChatsworthLib.Entity;
 using NUnit.Framework;
 
 namespace UnitTests
@@ -12,7 +11,7 @@ namespace UnitTests
         {
             ChatMemberCollection member = new ChatMemberCollection
                                           {new ChatMember("foo@bar.com", "Foo"), new ChatMember("bar@bar.com", "Bar")};
-            ChatMember bar = member.Find("foo@bar.com");
+            ChatMember bar = member.FindByJid("foo@bar.com");
             Assert.IsNotNull(bar);
             Assert.IsTrue(bar.Jid == "foo@bar.com");
         }
@@ -21,7 +20,7 @@ namespace UnitTests
         public void not_in_list_returns_null()
         {
             ChatMemberCollection member = new ChatMemberCollection { new ChatMember("foo@bar.com", "Foo"), new ChatMember("bar@bar.com", "Bar") };
-            ChatMember notThere = member.Find("NOTINTHERE@bar.com");
+            ChatMember notThere = member.FindByJid("NOTINTHERE@bar.com");
             Assert.IsNull(notThere);
         }
 

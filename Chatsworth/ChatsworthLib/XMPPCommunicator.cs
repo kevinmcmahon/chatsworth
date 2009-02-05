@@ -1,6 +1,7 @@
 ﻿using agsXMPP;
 using agsXMPP.net;
 using agsXMPP.protocol.client;
+using ChatsworthLib.Entity;
 using log4net;
 
 namespace ChatsworthLib

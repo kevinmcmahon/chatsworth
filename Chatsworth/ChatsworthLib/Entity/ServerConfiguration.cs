@@ -1,4 +1,4 @@
-namespace ChatsworthLib
+namespace ChatsworthLib.Entity
 {
     public class ServerConfiguration
     {

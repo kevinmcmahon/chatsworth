@@ -19,10 +19,9 @@ namespace ChatsworthLib.MessageHandlers
         {
             if (!CanProcess(message))
                 return;
+            ChatMember from = _directory.LookUp(message.From.Bare);
 
-            ChatMember from = _directory.ChatSubscribers.Find(message.From.Bare);
-
-            List<ChatMember> recipients = _directory.ChatSubscribers.FindAll(x => x.Jid != from.Jid);
+            List<ChatMember> recipients = _directory.GetToListForSubscriber(message.From.Bare);
 
             foreach (ChatMember member in recipients)
             {
