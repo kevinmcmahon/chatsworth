@@ -18,6 +18,8 @@ namespace Chatsworth
 
         protected override void OnStart(string[] args)
         {
+            System.IO.Directory.SetCurrentDirectory(System.AppDomain.CurrentDomain.BaseDirectory);
+
             ConfigureMemberDirectory();
             ConfigureCommunicator();
             StartServer();
