@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_58A4D02B0008465EB7EC405ED81FA3FF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6E48D04977BC4500BD0E2B6AC72F6AB4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -77,12 +83,6 @@
         {
         "MsmKey" = "8:_83D6E612E48F458646FB398C3D143B8D"
         "OwnerKey" = "8:_6E48D04977BC4500BD0E2B6AC72F6AB4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8D1A18828AAD4648ACFB3D77990931AD"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -507,6 +507,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58A4D02B0008465EB7EC405ED81FA3FF"
+            {
+            "SourcePath" = "8:..\\Chatsworth\\log4net.config"
+            "TargetName" = "8:log4net.config"
+            "Tag" = "8:"
+            "Folder" = "8:_9A3711DD44EF4E19B8329AAF0A6CFA0E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_806F4E2E2965C2680E6ECB64C6C05304"
             {
             "AssemblyRegister" = "3:1"
@@ -542,7 +562,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ChatsworthLib, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ChatsworthLib, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_83D6E612E48F458646FB398C3D143B8D"
@@ -567,26 +587,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D1A18828AAD4648ACFB3D77990931AD"
-            {
-            "SourcePath" = "8:..\\ChatsworthLib\\log4net.config"
-            "TargetName" = "8:log4net.config"
-            "Tag" = "8:"
-            "Folder" = "8:_9A3711DD44EF4E19B8329AAF0A6CFA0E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9C159FF2349419DA151E46227419DB39"
@@ -748,7 +748,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_DA7D5AE3A0836CC7A59F19095E596FFF"
@@ -1403,7 +1403,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6E48D04977BC4500BD0E2B6AC72F6AB4"
             {
-            "SourcePath" = "8:..\\Chatsworth\\obj\\Debug\\Chatsworth.exe"
+            "SourcePath" = "8:..\\Chatsworth\\obj\\Release\\Chatsworth.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9A3711DD44EF4E19B8329AAF0A6CFA0E"

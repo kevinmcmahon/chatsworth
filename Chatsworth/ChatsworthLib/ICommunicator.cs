@@ -1,4 +1,5 @@
 ﻿using ChatsworthLib.Entity;
+using log4net;
 
 namespace ChatsworthLib
 {
@@ -8,6 +9,7 @@ namespace ChatsworthLib
         event OnRequestMessageHandler OnMessage;
         void OpenConnection();
         void Configure(ServerConfiguration configuration);
+        ILog Log { get; set; }
     }
 
     public delegate void OnRequestMessageHandler(object sender, OnMessageHandlerArgs args);

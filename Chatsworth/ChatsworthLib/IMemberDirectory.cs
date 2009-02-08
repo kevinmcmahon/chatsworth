@@ -1,5 +1,6 @@
 using ChatsworthLib.DataAccess;
 using ChatsworthLib.Entity;
+using log4net;
 
 namespace ChatsworthLib
 {
@@ -13,5 +14,6 @@ namespace ChatsworthLib
         ChatMemberCollection GetAllSubscribers();
         ChatMember LookUpByAlias(string alias);
         void AttachRepository(ChatMemberRespository respository);
+        ILog Log { get; set; }
     }
 }

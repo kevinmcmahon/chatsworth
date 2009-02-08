@@ -7,10 +7,15 @@ namespace ChatsworthLib
 {
     public class MemberDirectory : IMemberDirectory
     {
-        private static readonly ILog log = LogManager.GetLogger("ChatsworthLib.Logger");
-        
         private ChatMemberRespository _repository;
         private ChatMemberCollection _subscribers;
+        private ILog _log = new NullLogger();
+
+        public ILog Log
+        {
+            get { return _log; }
+            set { _log = value; }
+        }
 
         public bool AddSubscriber(string jid)
         {
@@ -40,8 +45,8 @@ namespace ChatsworthLib
             }
             catch(Exception e)
             {
-                if (log.IsErrorEnabled)
-                    log.ErrorFormat("Error saving chat member Jid:{0} Alias:{1} to repository.",newSub.Jid,newSub.Alias);
+                if (Log.IsErrorEnabled)
+                    Log.ErrorFormat("Error saving chat member Jid:{0} Alias:{1} to repository.",newSub.Jid,newSub.Alias);
             }
         }
 
@@ -67,8 +72,8 @@ namespace ChatsworthLib
             }
             catch (Exception e)
             {
-                if (log.IsErrorEnabled)
-                    log.ErrorFormat("Error saving chat member Jid:{0} Alias:{1} to repository.", leavingSub.Jid, leavingSub.Alias);
+                if (Log.IsErrorEnabled)
+                    Log.ErrorFormat("Error saving chat member Jid:{0} Alias:{1} to repository.", leavingSub.Jid, leavingSub.Alias);
             }
         }
 

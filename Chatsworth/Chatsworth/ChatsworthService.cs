@@ -4,12 +4,14 @@ using Chatsworth.Properties;
 using ChatsworthLib;
 using ChatsworthLib.DataAccess;
 using ChatsworthLib.Entity;
+using log4net;
 
 namespace Chatsworth
 {
     public partial class ChatsworthService : ServiceBase
     {
-        private ChatController controller;
+        private static readonly ILog _log = LogManager.GetLogger("Chatsworth.Logger");
+        private ChatController _controller;
 
         public ChatsworthService()
         {
@@ -19,16 +21,21 @@ namespace Chatsworth
         protected override void OnStart(string[] args)
         {
             System.IO.Directory.SetCurrentDirectory(System.AppDomain.CurrentDomain.BaseDirectory);
-
-            ConfigureMemberDirectory();
-            ConfigureCommunicator();
+            PerformConfiguration();
             StartServer();
         }
 
-        private void ConfigureMemberDirectory()
+        private void PerformConfiguration()
+        {
+            ConfigureMemberDirectory(_log);
+            ConfigureCommunicator(_log);
+        }
+
+        private void ConfigureMemberDirectory(ILog log)
         {
             ChatMemberRespository respository = CreateChatMemberRepository();
             var directory = ServiceLocator.Retrieve<IMemberDirectory>();
+            directory.Log = log;
             directory.AttachRepository(respository);
         }
 
@@ -47,24 +54,24 @@ namespace Chatsworth
 
         protected override void OnStop()
         {
-            if (controller != null)
-                controller.Stop();
+            if (_controller != null)
+                _controller.Stop();
         }
 
-        private void ConfigureCommunicator()
+        private void ConfigureCommunicator(ILog log)
         {
             var configuration = new ServerConfiguration(Settings.Default.Server, Settings.Default.Username,
                                                         Settings.Default.Password);
 
             var communicator = ServiceLocator.Retrieve<ICommunicator>();
-            
+            communicator.Log = log;
             communicator.Configure(configuration);
         }
 
         private void StartServer()
         {
-            controller = ServiceLocator.Retrieve<ChatController>();
-            controller.Start();
+            _controller = ServiceLocator.Retrieve<ChatController>();
+            _controller.Start();
         }
     }
 }
