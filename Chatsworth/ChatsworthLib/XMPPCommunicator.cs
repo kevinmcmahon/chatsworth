@@ -14,7 +14,7 @@ namespace ChatsworthLib
         private const int MAX_RECONNECT_TIME = 120000; // 120s max timer delay 
         private Timer _reconnectTimer;
         private int _timerDelay = 15000; // 15s start delay
-        private XmppClientConnection xmpp;
+        private XmppClientConnection _xmpp;
         private ILog _logger = new NullLogger();
 
         public ILog Log
@@ -25,7 +25,7 @@ namespace ChatsworthLib
 
         public void Configure(ServerConfiguration configuration)
         {
-            xmpp = new XmppClientConnection
+            _xmpp = new XmppClientConnection
                        {
                            Server = configuration.Server,
                            Username = configuration.Username,
@@ -36,22 +36,22 @@ namespace ChatsworthLib
                            AutoResolveConnectServer = true
                        };
 
-            xmpp.OnMessage += xmpp_OnMessage;
-            xmpp.OnReadXml += xmpp_OnReadXml;
-            xmpp.OnWriteXml += xmpp_OnWriteXml;
-            xmpp.OnLogin += xmpp_OnLogin;
-            xmpp.OnAuthError += xmpp_OnAuthError;
-            xmpp.OnSocketError += xmpp_OnError;
-            xmpp.OnError += xmpp_OnError;
-            xmpp.OnXmppConnectionStateChanged += xmpp_OnXmppConnectionStateChanged;
-            xmpp.OnClose += xmpp_OnClose;
+            _xmpp.OnMessage += xmpp_OnMessage;
+            _xmpp.OnReadXml += xmpp_OnReadXml;
+            _xmpp.OnWriteXml += xmpp_OnWriteXml;
+            _xmpp.OnLogin += xmpp_OnLogin;
+            _xmpp.OnAuthError += xmpp_OnAuthError;
+            _xmpp.OnSocketError += xmpp_OnError;
+            _xmpp.OnError += xmpp_OnError;
+            _xmpp.OnXmppConnectionStateChanged += xmpp_OnXmppConnectionStateChanged;
+            _xmpp.OnClose += xmpp_OnClose;
         }
 
         public void OpenConnection()
         {
             if (Log.IsDebugEnabled)
                 Log.Debug("Attempting to open connection.");
-            xmpp.Open();
+            _xmpp.Open();
         }
 
         public event OnRequestMessageHandler OnMessage;
@@ -64,7 +64,7 @@ namespace ChatsworthLib
             if (Log.IsDebugEnabled)
                 Log.DebugFormat("msg being sent to: {0} msg text : {1}", msg.To, msg.Body);
 
-            xmpp.Send(msg);
+            _xmpp.Send(msg);
         }
 
         private void xmpp_OnClose(object sender)
@@ -115,7 +115,7 @@ namespace ChatsworthLib
             if (Log.IsDebugEnabled)
                 Log.Debug("Connection established and sending prescence");
 
-            xmpp.SendMyPresence();
+            _xmpp.SendMyPresence();
 
             DisposeConnectionTimer();
         }
