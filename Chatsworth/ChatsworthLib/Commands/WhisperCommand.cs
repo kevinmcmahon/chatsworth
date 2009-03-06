@@ -46,12 +46,13 @@ namespace ChatsworthLib.Commands
             Match match = regex.Match(message.Body);
 
             string toJid = GetRecipient(match.Groups["Alias"].ToString());
+            
             string rawMessage = match.Groups["Message"].ToString();
 
             var data = new WhisperMessageData
                            {
                                ToJid = toJid,
-                               Message = FormatMessage(fromAlias,rawMessage)
+                               Message = FormatMessage(fromAlias, rawMessage)
                            };
             return data;
         }

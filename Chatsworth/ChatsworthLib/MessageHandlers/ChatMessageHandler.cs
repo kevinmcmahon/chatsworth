@@ -7,9 +7,9 @@ namespace ChatsworthLib.MessageHandlers
     public class ChatMessageHandler : IMessageHandler
     {
         private readonly ICommunicator _communicator;
-        private readonly MemberDirectory _directory;
+        private readonly IMemberDirectory _directory;
 
-        public ChatMessageHandler(ICommunicator communicator, MemberDirectory directory)
+        public ChatMessageHandler(ICommunicator communicator, IMemberDirectory directory)
         {
             _communicator = communicator;
             _directory = directory;
@@ -19,9 +19,10 @@ namespace ChatsworthLib.MessageHandlers
         {
             if (!CanProcess(message))
                 return;
+
             ChatMember from = _directory.LookUp(message.From.Bare);
 
-            List<ChatMember> recipients = _directory.GetToListForSubscriber(message.From.Bare);
+            IEnumerable<ChatMember> recipients = _directory.GetToListForSubscriber(message.From.Bare);
 
             foreach (ChatMember member in recipients)
             {

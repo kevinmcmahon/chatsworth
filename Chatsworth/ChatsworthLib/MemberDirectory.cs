@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ChatsworthLib.DataAccess;
 using ChatsworthLib.Entity;
 using log4net;
@@ -8,7 +10,7 @@ namespace ChatsworthLib
     public class MemberDirectory : IMemberDirectory
     {
         private ChatMemberRespository _repository;
-        private ChatMemberCollection _subscribers;
+        private List<ChatMember> _subscribers;
         private ILog _log = new NullLogger();
 
         public ILog Log
@@ -25,7 +27,7 @@ namespace ChatsworthLib
         public bool AddSubscriber(string jid, string alias)
         {
             if(string.IsNullOrEmpty(jid))
-                throw new ArgumentNullException("jid","Calling AddSubscriber with a null or empty jid");
+                throw new ArgumentNullException("jid", "Calling AddSubscriber with a null or empty jid");
 
             var newSub = string.IsNullOrEmpty(alias) ? new ChatMember(jid) : new ChatMember(jid, alias);
 
@@ -77,9 +79,9 @@ namespace ChatsworthLib
             }
         }
 
-        public ChatMemberCollection GetToListForSubscriber(string jid)
+        public List<ChatMember> GetToListForSubscriber(string jid)
         {
-            return new ChatMemberCollection(_subscribers.FindAll(x => x.Jid != jid));
+            return _subscribers.FindAll(x => x.Jid != jid);
         }
 
         public ChatMember LookUp(string jid)
@@ -87,7 +89,7 @@ namespace ChatsworthLib
             return _subscribers.FindByJid(jid);
         }
 
-        public ChatMemberCollection GetAllSubscribers()
+        public List<ChatMember> GetAllSubscribers()
         {
             return _subscribers;
         }
@@ -100,7 +102,7 @@ namespace ChatsworthLib
         public void AttachRepository(ChatMemberRespository respository)
         {
             _repository = respository;
-            _subscribers = _repository.GetChatMembers();
+            _subscribers = _repository.GetChatMembers().ToList();
         }
     }
 }

@@ -36,12 +36,17 @@ namespace ChatsworthLib
                            AutoResolveConnectServer = true
                        };
 
+            RegisterXmppEventHandlers();
+        }
+
+        private void RegisterXmppEventHandlers()
+        {
             _xmpp.OnMessage += xmpp_OnMessage;
             _xmpp.OnReadXml += xmpp_OnReadXml;
             _xmpp.OnWriteXml += xmpp_OnWriteXml;
             _xmpp.OnLogin += xmpp_OnLogin;
             _xmpp.OnAuthError += xmpp_OnAuthError;
-            _xmpp.OnSocketError += xmpp_OnError;
+            _xmpp.OnSocketError += xmpp_OnSocketError;
             _xmpp.OnError += xmpp_OnError;
             _xmpp.OnXmppConnectionStateChanged += xmpp_OnXmppConnectionStateChanged;
             _xmpp.OnClose += xmpp_OnClose;
@@ -51,6 +56,8 @@ namespace ChatsworthLib
         {
             if (Log.IsDebugEnabled)
                 Log.Debug("Attempting to open connection.");
+
+            _xmpp.SocketDisconnect();
             _xmpp.Open();
         }
 
@@ -98,8 +105,8 @@ namespace ChatsworthLib
             }
             else
             {
-                if (Log.IsDebugEnabled)
-                    Log.Debug("Reconnection error.  Server or network is down.");
+                if (Log.IsFatalEnabled)
+                    Log.Fatal("Reconnection error.  Server or network is down.");
                 DisposeConnectionTimer();
             }
         }
@@ -107,13 +114,14 @@ namespace ChatsworthLib
         private void xmpp_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
         {
             if (Log.IsDebugEnabled)
-                Log.DebugFormat("Connection state changed. Connection State: {0}", state);
+                Log.DebugFormat("OnXmppConnectionStateChanged : Connection State - {0}", state);
         }
+
 
         private void xmpp_OnLogin(object sender)
         {
             if (Log.IsDebugEnabled)
-                Log.Debug("Connection established and sending prescence");
+                Log.Debug("OnLogin : Connection established and sending prescence");
 
             _xmpp.SendMyPresence();
 
@@ -131,20 +139,20 @@ namespace ChatsworthLib
 
         private void xmpp_OnWriteXml(object sender, string xml)
         {
-            if (Log.IsDebugEnabled)
-                Log.DebugFormat("OnWriteXml : {0}", xml);
+            if (Log.IsInfoEnabled)
+                Log.InfoFormat("OnWriteXml : {0}", xml);
         }
 
         private void xmpp_OnReadXml(object sender, string xml)
         {
-            if (Log.IsDebugEnabled)
-                Log.DebugFormat("OnReadXml : {0}", xml);
+            if (Log.IsInfoEnabled)
+                Log.InfoFormat("OnReadXml : {0}", xml);
         }
 
         private void xmpp_OnMessage(object sender, Message msg)
         {
-            if (Log.IsDebugEnabled)
-                Log.DebugFormat("{0} - {1}", msg.Type, msg.Body);
+            if (Log.IsInfoEnabled)
+                Log.InfoFormat("OnMessage : {0} - {1}", msg.Type, msg.Body);
 
             if (ShouldHandleMessage(msg))
             {
@@ -155,13 +163,19 @@ namespace ChatsworthLib
         private void xmpp_OnError(object sender, Exception ex)
         {
             if (Log.IsErrorEnabled)
-                Log.DebugFormat("Error Occurred. {0} - {1}", ex.Message, ex.StackTrace);
+                Log.ErrorFormat("OnError : {0} - {1}", ex.Message, ex.StackTrace);
+        }
+
+        private void xmpp_OnSocketError(object sender, Exception ex)
+        {
+            if(Log.IsErrorEnabled)
+                Log.ErrorFormat("OnSocketError : message = {0} - stack trace = {1}", ex.Message, ex.StackTrace);
         }
 
         private void xmpp_OnAuthError(object sender, Element e)
         {
-            if (Log.IsDebugEnabled)
-                Log.Debug("Authorization Error");
+            if (Log.IsErrorEnabled)
+                Log.Error("OnAuthError : Authorization Error");
         }
 
         private bool ShouldHandleMessage(Message msg)

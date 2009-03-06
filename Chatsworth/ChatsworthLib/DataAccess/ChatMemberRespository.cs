@@ -7,10 +7,9 @@ namespace ChatsworthLib.DataAccess
     {
         public ChatMemberRespository(NHibernateSessionManager sessionManager) : base(sessionManager) {}
 
-        public ChatMemberCollection GetChatMembers()
+        public IEnumerable<ChatMember> GetChatMembers()
         {
-            List<ChatMember> list = (List<ChatMember>) this.GetAll();
-            return new ChatMemberCollection(list);
+            return this.GetAll();
         }
     }
 }

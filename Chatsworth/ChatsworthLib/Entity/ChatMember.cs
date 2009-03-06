@@ -20,24 +20,16 @@ namespace ChatsworthLib.Entity
         public bool HasAlias { get { return Jid != Alias;} }
     }
 
-    public class ChatMemberCollection : List<ChatMember>
+    public static class Extensions
     {
-        public ChatMemberCollection() {}
-
-        public ChatMemberCollection(IEnumerable<ChatMember> list)
+        public static ChatMember FindByJid(this List<ChatMember> source, string jid)
         {
-            base.Clear();
-            base.AddRange(list);
+            return source.Find(x => x.Jid == jid);
         }
 
-        public ChatMember FindByJid(string jid)
+        public static ChatMember FindByAlias(this List<ChatMember> source, string alias)
         {
-            return Find(x => x.Jid == jid);
-        }
-
-        public ChatMember FindByAlias(string alias)
-        {
-            return this.Find(x => x.Alias == alias);
+            return source.Find(x => x.Alias == alias);
         }
     }
 }

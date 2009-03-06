@@ -7,17 +7,17 @@ namespace UnitTests
     [TestFixture]
     public class XmlPersistenceProviderTest
     {
-        private ChatMember fooMember;
-        private ChatMember booMember;
-        private ChatMemberCollection col;
+        //private ChatMember fooMember;
+        //private ChatMember booMember;
+        //private List<ChatMember> col;
 
-        [SetUp]
-        public void SetUp()
-        {
-            fooMember = new ChatMember("foo@bar.com", "Foo");
-            booMember = new ChatMember("boo@bar.com", "Boo");
-            col = new ChatMemberCollection {fooMember, booMember};
-        }
+        //[SetUp]
+        //public void SetUp()
+        //{
+        //    fooMember = new ChatMember("foo@bar.com", "Foo");
+        //    booMember = new ChatMember("boo@bar.com", "Boo");
+        //    col = new List<ChatMember> {fooMember, booMember};
+        //}
 
         //[Test]
         //public void should_write_single_entity_to_xml_file()
