@@ -83,7 +83,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="log4net.config" />
-    <None Include="Properties\Settings.settings" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
