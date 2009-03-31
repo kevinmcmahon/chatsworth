@@ -44,6 +44,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\agsXMPP.dll</HintPath>
     </Reference>
+    <Reference Include="Machine.Specifications, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.NUnit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Machine.Specifications.NUnit.dll</HintPath>
+    </Reference>
     <Reference Include="NUnit.framework">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NUnit.framework.dll</HintPath>

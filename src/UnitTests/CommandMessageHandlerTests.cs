@@ -2,59 +2,52 @@
 using Chatsworth.Core;
 using Chatsworth.Core.Commands;
 using Chatsworth.Core.MessageHandlers;
+using Machine.Specifications;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Chatsworth.UnitTests
 {
-    [TestFixture]
-    public class CommandMessageHandlerTests
+    public abstract class with_command_message_handlers
     {
-        CommandMessageHandler handler;
-        ICommunicator communicator;
-        IMemberDirectory directory;
-        MockRepository mocks = new MockRepository();
+        protected static CommandMessageHandler handler;
+        protected static Message msg;
+        protected static bool canProcessMessage;
 
-        [SetUp]
-        public void SetUp()
-        {
-            communicator = mocks.DynamicMock<ICommunicator>();
-            directory = mocks.DynamicMock<IMemberDirectory>();
-            handler = new CommandMessageHandler(new ICommand[] {new JoinCommand(communicator, directory)});
-        }
+        Establish context = () =>
+            {
+                MockRepository mocks = new MockRepository();
 
-        //[Test]
-        //public void can_extract_first_word()
-        //{
-        //    string result = handler.ExtractFirstWord("/this is a test");
-        //    Assert.IsTrue(result == "/this");      
-        //}
+                ICommunicator communicator = mocks.DynamicMock<ICommunicator>();
+                IMemberDirectory directory = mocks.DynamicMock<IMemberDirectory>();
 
-        //[Test]
-        //public void can_handle_null_passed_to_extract_message()
-        //{
-        //    string result = handler.ExtractFirstWord(null);
-        //    Assert.IsTrue(result == string.Empty);           
-        //}
+                handler = new CommandMessageHandler(new ICommand[] {new JoinCommand(communicator, directory)});
+            };
+    }
+ 
+    [Subject(typeof(CommandMessageHandler))]
+    public class when_given_a_message_that_has_command_formatting : with_command_message_handlers
+    {
+        Because of = () => { msg = new Message {Body = "/command hello internets"}; };
+        It should_return_true_when_canprocess_called = () => Assert.IsTrue(handler.CanProcess(msg));
+    }
 
-        [Test]
-        public void can_recognize_commands()
-        {
-            Message msg = new Message {Body = "/command hello internets"};
-            Assert.IsTrue(handler.CanProcess(msg));
-        }
+    [Subject(typeof(CommandMessageHandler))]
+    public class when_given_a_message_that_does_not_have_command_formatting : with_command_message_handlers
+    {
+        Because of = () =>
+            {
+                msg = new Message {Body = "command hello internets"};
+                canProcessMessage = handler.CanProcess(msg);
+            };
 
-        [Test]
-        public void can_recognize_not_a_command()
-        {
-            Message msg = new Message {Body = "command hello internets"};
-            Assert.IsFalse(handler.CanProcess(msg));
-        }
-        
-        [Test]
-        public void can_recognize_not_a_command_with_null()
-        {
-            Assert.IsFalse(handler.CanProcess(null));
-        }
+        It should_return_false_when_canprocess_called = () => Assert.IsFalse(canProcessMessage);
+    }
+
+    [Subject(typeof(CommandMessageHandler))]
+    public class when_passed_null : with_command_message_handlers
+    {
+        Because of = () => { canProcessMessage = handler.CanProcess(null); };
+        It should_return_false_when_canprocess_called =()=> Assert.IsFalse(canProcessMessage);
     }
 }

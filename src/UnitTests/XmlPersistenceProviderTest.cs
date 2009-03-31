@@ -1,62 +1,48 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.IO;
+using Chatsworth.Core.DataAccess;
+using Chatsworth.Core.Entity;
+using Machine.Specifications;
+using NUnit.Framework;
 
 namespace Chatsworth.UnitTests
 {
-    [TestFixture]
-    public class XmlPersistenceProviderTest
+    public abstract class with_xml_repos_settings_and_chat_member_list : with_chat_member_list
     {
-        //private ChatMember fooMember;
-        //private ChatMember booMember;
-        //private List<ChatMember> col;
+        protected static string filePath;
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    fooMember = new ChatMember("foo@bar.com", "Foo");
-        //    booMember = new ChatMember("boo@bar.com", "Boo");
-        //    col = new List<ChatMember> {fooMember, booMember};
-        //}
+        Establish context = () =>
+            {
+                filePath = ".\\test_entity.xml";
 
-        //[Test]
-        //public void should_write_single_entity_to_xml_file()
-        //{
-        //    var p = new XmlPersistenceProvider(".\\test_entity.xml");
-        //    p.Save(fooMember);
-        //}
+                chatMemberList = new List<ChatMember>
+                                     {new ChatMember("foo@bar.com", "Foo"), new ChatMember("bar@bar.com", "Bar")};
+            };
+    }
 
-        //[Test]
-        //public void should_write_collection_entity_to_xml_file()
-        //{
-        //    var p = new XmlPersistenceProvider(".\\test_collection.xml");
-        //    p.Save(col);
-        //}
+    [Subject(typeof (XmlRepository<ChatMember>), "XmlRepository")]
+    public class when_saving_chat_member_list : with_xml_repos_settings_and_chat_member_list
+    {
+        Because of = () =>
+            {
+                var p = new XmlRepository<List<ChatMember>>(filePath);
+                p.Save(chatMemberList);
+            };
 
-        //[Test]
-        //public void rehydrate_single_entity()
-        //{
-        //    var p = new XmlPersistenceProvider(".\\test_entity.xml");
-        //    var test = p.Get<ChatMember>();
-        //    Assert.IsTrue(test.Alias == fooMember.Alias);
-        //    Assert.IsTrue(test.Jid == fooMember.Jid);
-        //}
-        
-        //[Test]
-        //public void rehydrate_entity_collection()
-        //{
-        //    var p = new XmlPersistenceProvider(".\\test_collection.xml");
-        //    var test = p.Get<ChatMemberCollection>();
-        //    Assert.IsTrue(test[0].Alias == fooMember.Alias);
-        //    Assert.IsTrue(test[0].Jid == fooMember.Jid);
-        //    Assert.IsTrue(test[1].Alias == booMember.Alias);
-        //    Assert.IsTrue(test[1].Jid == booMember.Jid);
-        //}
+        It should_created_the_storage_file = () => Assert.IsTrue(File.Exists(filePath));
+    }
 
-        //[Test]
-        //public void should_not_fail_when_retrieving_empty_collection()
-        //{
-        //    var p = new XmlPersistenceProvider(".\\test_empty_file.xml");
-        //    var test = p.Get<ChatMemberCollection>();
-        //    Assert.IsNull(test);
-        //}
+    [Subject(typeof (XmlRepository<ChatMember>), "XmlRepository")]
+    public class when_attempting_to_retrieve_from_xml_that_does_not_exist : with_xml_repos_settings_and_chat_member_list
+    {
+        static List<ChatMember> testList;
+
+        Because of = () =>
+            {
+                var repository = new XmlRepository<List<ChatMember>>(".\\test_empty_file.xml"); 
+                testList = (List<ChatMember>) repository.GetAll();
+            };
+
+        It should_return_null =()=> Assert.IsNull(testList);
     }
 }
