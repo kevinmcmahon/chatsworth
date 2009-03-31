@@ -2,7 +2,8 @@
 <project name="Chatsworth" default="test" xmlns="http://nant.sf.net/schemas/nant.xsd">
 	<property name="build.dir" value="build" />
 	<property name="nant.settings.currentframework" value="net-3.5" />
-
+	<property name="sqlitedb.dir" value="src\Core\Db" />
+	
 	<!-- User targets -->
 	<target name="clean" description="Delete Automated Build artifacts">
 		<delete dir="${build.dir}" if="${directory::exists(build.dir)}"/>
@@ -22,14 +23,13 @@
 	<!-- Internal targets -->
 	<target name="run-unit-tests">
 		<mkdir dir="${build.dir}\test-reports" />
-		<copy file="src\Core\Db\chatsworthdb.s3db" tofile="${build.dir}\Debug\UnitTests\chatsworthdb.s3db" />
+		<copy file="${sqlitedb.dir}\chatsworthdb.s3db" tofile="${build.dir}\Debug\UnitTests\chatsworthdb.s3db" />
 		<exec program="regsvr32" workingdir="tools\NCover" commandline="/s CoverLib.dll" />
 		<exec program="tools\ncover\NCover.Console.exe" 
 			workingdir="${build.dir}\Debug\UnitTests">
 			<arg value="//w &quot;.&quot;" />
-			<arg value="//x &quot;..\..\test-reports\Coverage.xml&quot;" />
-			<arg value="&quot;..\..\..\tools\nunit\nunit-console.exe&quot;" />
-			<arg value="&quot;Chatsworth.UnitTests.dll&quot; &quot;/xml:..\..\test-reports\UnitTests.xml&quot; &quot;/nologo&quot;" />
+			<arg value="//x &quot;..\..\test-reports\Coverage.xml&quot;" /><arg value="&quot;..\..\..\tools\Machine.Specifications\Machine.Specifications.ConsoleRunner.exe&quot;" />
+			<arg value="Chatsworth.UnitTests.dll" />
 		</exec>
 	</target>
 	
