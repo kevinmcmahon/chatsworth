@@ -11,11 +11,11 @@ namespace Chatsworth.Core
 {
     public class XMPPCommunicator : ICommunicator
     {
-        private const int MAX_RECONNECT_TIME = 120000; // 120s max timer delay 
         private Timer _reconnectTimer;
         private int _timerDelay = 15000; // 15s start delay
         private XmppClientConnection _xmpp;
         private ILog _logger = new NullLogger();
+        private bool _sockWasConnected = false;
 
         public ILog Log
         {
@@ -57,7 +57,12 @@ namespace Chatsworth.Core
             if (Log.IsDebugEnabled)
                 Log.Debug("Attempting to open connection.");
 
-            _xmpp.SocketDisconnect();
+            if(_sockWasConnected)
+            {
+                _xmpp.SocketDisconnect();
+                _sockWasConnected = false;
+            }
+
             _xmpp.Open();
         }
 
@@ -84,31 +89,13 @@ namespace Chatsworth.Core
 
         private void DelayedReconnect()
         {
-            _reconnectTimer = new Timer(AttemptReconnection, null, 0, _timerDelay);
+            if (_reconnectTimer == null)
+                _reconnectTimer = new Timer(AttemptReconnection, null, 0, _timerDelay);
         }
 
         private void AttemptReconnection(object state)
         {
             OpenConnection();
-            UpdateReconnectTimer();
-        }
-
-        private void UpdateReconnectTimer()
-        {
-            _timerDelay = _timerDelay*2;
-
-            if (_timerDelay <= MAX_RECONNECT_TIME)
-            {
-                if (Log.IsDebugEnabled)
-                    Log.DebugFormat("Reconnection timer being set to {0} seconds.", _timerDelay / 1000);
-                _reconnectTimer.Change(0, _timerDelay);
-            }
-            else
-            {
-                if (Log.IsFatalEnabled)
-                    Log.Fatal("Reconnection error.  Server or network is down.");
-                DisposeConnectionTimer();
-            }
         }
 
         private void xmpp_OnXmppConnectionStateChanged(object sender, XmppConnectionState state)
@@ -116,7 +103,6 @@ namespace Chatsworth.Core
             if (Log.IsDebugEnabled)
                 Log.DebugFormat("OnXmppConnectionStateChanged : Connection State - {0}", state);
         }
-
 
         private void xmpp_OnLogin(object sender)
         {
@@ -126,6 +112,7 @@ namespace Chatsworth.Core
             _xmpp.SendMyPresence();
 
             DisposeConnectionTimer();
+            _sockWasConnected = true;
         }
 
         private void DisposeConnectionTimer()
