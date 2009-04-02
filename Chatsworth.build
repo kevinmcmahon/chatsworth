@@ -1,8 +1,10 @@
 <?xml version="1.0" ?>
 <project name="Chatsworth" default="test" xmlns="http://nant.sf.net/schemas/nant.xsd">
 	<property name="build.dir" value="build" />
+	<property name="msi.dir" value="${build.dir}\msi" />
 	<property name="nant.settings.currentframework" value="net-3.5" />
 	<property name="sqlitedb.dir" value="src\Core\Db" />
+	<property name="devenv.dir" value="C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\" />
 	
 	<!-- User targets -->
 	<target name="clean" description="Delete Automated Build artifacts">
@@ -15,10 +17,17 @@
 		</msbuild>
 	</target>
 
-	<target name="test" depends="compile, run-unit-tests" 
-		description="Compile and Run Tests" />
-		
-	<target name="full" depends="clean, test, dist"	description="Compiles, tests, and produces distributions" />
+	<target name="release-compile" description="Compiles using the Release Configuration and builds MSI">
+		<property name="msi-file-name" value="${msi.dir}\ChatsworthInstaller.msi" />
+		<mkdir dir="${msi.dir}\log" />
+		<exec failonerror="false" basedir="${devenv.dir}"
+		program="devenv.exe" commandline="src\Chatsworth.sln /build Release /project ChatsworthInstaller /out ${msi.dir}\log\msi.log" /> 
+		<fail if="${not file::exists(msi-file-name)}">The MSI failed to build. See log\msi.log for more details.</fail>
+	</target>
+	
+	<target name="test" depends="compile, run-unit-tests" description="Compile and Run Tests" />
+	
+	<target name="full" depends="clean, release-compile" description="Compiles and produces distributions" />
 
 	<!-- Internal targets -->
 	<target name="run-unit-tests">
