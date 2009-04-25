@@ -17,6 +17,9 @@ namespace Chatsworth.Core.Entity
 
             Map(x => x.Alias)
                 .CanNotBeNull();
+
+            Map(x => x.ActiveInChat)
+                .CanNotBeNull();
         }
 
         public XmlDocument Generate()

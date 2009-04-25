@@ -75,8 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatMemberTests.cs" />
+    <Compile Include="ChatMessageHandlerTests.cs" />
     <Compile Include="CommandMessageHandlerTests.cs" />
+    <Compile Include="CommandTests\JoinCommandTests.cs" />
+    <Compile Include="CommandTests\LeaveCommandTests.cs" />
+    <Compile Include="CommandTests\TestMessageContext.cs" />
     <Compile Include="DbPersistenceTest.cs" />
+    <Compile Include="MessageProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlPersistenceProviderTest.cs" />
   </ItemGroup>

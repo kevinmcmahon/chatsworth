@@ -11,6 +11,7 @@ namespace Chatsworth.Core.Entity
         {
             Jid = jid;
             Alias = string.IsNullOrEmpty(alias) ? jid : alias;
+            ActiveInChat = true;
         }
 
         public int Id { get; set; }
@@ -18,6 +19,8 @@ namespace Chatsworth.Core.Entity
         public string Alias { get; set; }
 
         public bool HasAlias { get { return Jid != Alias;} }
+
+        public bool ActiveInChat { get; set; }
     }
 
     public static class Extensions

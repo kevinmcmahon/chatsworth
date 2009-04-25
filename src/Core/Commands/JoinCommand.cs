@@ -5,6 +5,9 @@ namespace Chatsworth.Core.Commands
 {
     public class JoinCommand : ICommand
     {
+        public string JOINED_MESSAGE = "You've joined the chat.";
+        public string ALREADY_JOINED_MESSAGE = "You've already joined the chat.";
+        
         private readonly ICommunicator _communicator;
         private readonly IMemberDirectory _directory;
 
@@ -23,11 +26,11 @@ namespace Chatsworth.Core.Commands
             if (from == null)
             {
                 _directory.AddSubscriber(message.From.Bare);
-                response = "You've joined the chat.";
+                response = JOINED_MESSAGE;
             }
             else
             {
-                response = "You've already joined the chat.";
+                response = ALREADY_JOINED_MESSAGE;
             }
             _communicator.SendMessage(message.From.Bare,response);
         }

@@ -32,7 +32,7 @@ namespace Chatsworth.Core.MessageHandlers
 
         public bool CanProcess(Message message)
         {
-            return true;
+            return message == null ? false : true;
         }
     }
 }

@@ -16,7 +16,9 @@ namespace Chatsworth.Core
         public void Process(Message message)
         {
             IMessageHandler handler = Array.Find(_messageHandlers, h => h.CanProcess(message));
-            handler.ProcessMessage(message);
+            
+            if(handler != null)
+                handler.ProcessMessage(message);
         }
     }
 }

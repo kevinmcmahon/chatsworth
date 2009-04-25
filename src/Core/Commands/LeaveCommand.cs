@@ -6,6 +6,7 @@ namespace Chatsworth.Core.Commands
     {
         private readonly ICommunicator _communicator;
         private readonly IMemberDirectory _directory;
+        public const string REMOVED_CONFIRMATION_MESSAGE = "You have left the chat.";
 
         public LeaveCommand(ICommunicator communicator, IMemberDirectory directory)
         {
@@ -17,7 +18,7 @@ namespace Chatsworth.Core.Commands
         {
             if(_directory.RemoveSubscriber(message.From.Bare))
             {
-                _communicator.SendMessage(message.From.Bare,"You have left the chat.");
+                _communicator.SendMessage(message.From.Bare,REMOVED_CONFIRMATION_MESSAGE);
             }
         }
 
