@@ -9,6 +9,8 @@ namespace Chatsworth.Core.MessageHandlers
         private readonly ICommunicator _communicator;
         private readonly IMemberDirectory _directory;
 
+        public const string NOT_ACTIVE_IN_CHAT_MESSAGE = "You are currently inactive.  Message not sent.";
+
         public ChatMessageHandler(ICommunicator communicator, IMemberDirectory directory)
         {
             _communicator = communicator;
@@ -22,17 +24,30 @@ namespace Chatsworth.Core.MessageHandlers
 
             ChatMember from = _directory.LookUp(message.From.Bare);
 
-            IEnumerable<ChatMember> recipients = _directory.GetToListForSubscriber(message.From.Bare);
+            if (from == null)
+                return;
 
-            foreach (ChatMember member in recipients)
+            if (from.ActiveInChat)
             {
-                _communicator.SendMessage(member.Jid, string.Format("[\"{0}\"] {1}", from.Alias, message.Body));
+                IEnumerable<ChatMember> recipients = _directory.GetToListForSubscriber(message.From.Bare);
+
+                foreach (ChatMember member in recipients)
+                {
+                    if (member.ActiveInChat)
+                    {
+                        _communicator.SendMessage(member.Jid, string.Format("[\"{0}\"] {1}", from.Alias, message.Body));
+                    }
+                }
+            }
+            else
+            {
+                _communicator.SendMessage(from.Jid, NOT_ACTIVE_IN_CHAT_MESSAGE);
             }
         }
 
         public bool CanProcess(Message message)
         {
-            return message == null ? false : true;
+            return (message == null) ? false : true;
         }
     }
 }

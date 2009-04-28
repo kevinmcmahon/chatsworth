@@ -30,6 +30,16 @@ namespace Chatsworth.Core.DataAccess
             }
         }
 
+        public void Update(T instance)
+        {
+            using (var session = _sessionManager.GetSession())
+            using (var trans = session.BeginTransaction())
+            {
+                session.Update(instance);
+                trans.Commit();
+            }
+        }
+
         public void Delete(T instance)
         {
             using (var session = _sessionManager.GetSession())

@@ -39,5 +39,10 @@ namespace Chatsworth.Core.DataAccess
         {
             return;
         }
+
+        public void Update(T instance)
+        {
+            Save(instance);
+        }
     }
 }

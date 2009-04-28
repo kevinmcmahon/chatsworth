@@ -7,5 +7,6 @@ namespace Chatsworth.Core.DataAccess
         IEnumerable<T> GetAll();
         void Save(T instance);
         void Delete(T instance);
+        void Update(T instance);
     }
 }

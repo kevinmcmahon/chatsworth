@@ -16,5 +16,6 @@ namespace Chatsworth.Core
         ChatMember LookUpByAlias(string alias);
         void AttachRepository(ChatMemberRespository respository);
         ILog Log { get; set; }
+        void UpdateSubscriber(ChatMember subscriber);
     }
 }

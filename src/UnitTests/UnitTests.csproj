@@ -77,8 +77,10 @@
     <Compile Include="ChatMemberTests.cs" />
     <Compile Include="ChatMessageHandlerTests.cs" />
     <Compile Include="CommandMessageHandlerTests.cs" />
+    <Compile Include="CommandTests\AliasCommandTests.cs" />
     <Compile Include="CommandTests\JoinCommandTests.cs" />
     <Compile Include="CommandTests\LeaveCommandTests.cs" />
+    <Compile Include="CommandTests\ListCommandTests.cs" />
     <Compile Include="CommandTests\TestMessageContext.cs" />
     <Compile Include="DbPersistenceTest.cs" />
     <Compile Include="MessageProcessorTests.cs" />

@@ -10,10 +10,11 @@ namespace Chatsworth.UnitTests
     {
         protected static ICommunicator mockCommunicator;
         protected static IMemberDirectory mockDirectory;
-        protected static Jid TEST_TO_JID = "test@jid.com";
-        protected static string TEST_ALIAS = "Test Jid Alias";
+        protected static string TEST_ALIAS = "TestJidAlias";
         protected static Jid TEST_FROM_JID = "from@jid.com";
         protected static string TEST_MESSAGE = "Test message.";
+        protected static Jid TEST_TO_JID = "to@jid.com";
+
         protected static Message testMessage;
 
         Establish context = () =>

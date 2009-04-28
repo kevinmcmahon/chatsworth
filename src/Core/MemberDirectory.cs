@@ -33,19 +33,19 @@ namespace Chatsworth.Core
 
             _subscribers.Add(newSub);
 
-            AddSubscriberToDataStore(newSub);
+            SaveSubscriberToDataStore(newSub);
             
             return true;
         }
 
-        private void AddSubscriberToDataStore(ChatMember newSub)
+        private void SaveSubscriberToDataStore(ChatMember newSub)
         {
             try
             {
                 if(_repository != null)
                     _repository.Save(newSub);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 if (Log.IsErrorEnabled)
                     Log.ErrorFormat("Error saving chat member Jid:{0} Alias:{1} to repository.",newSub.Jid,newSub.Alias);
@@ -79,9 +79,44 @@ namespace Chatsworth.Core
             }
         }
 
+        public void UpdateSubscriber(ChatMember subscriber)
+        {
+            if(subscriber == null)
+            {
+                if(Log.IsWarnEnabled)
+                {
+                    Log.WarnFormat("Attempted to update a null subscriber.");
+                }
+                return;
+            }
+
+            UpdateInMemoryCollection(subscriber);
+            UpdateChatMemberInDataStore(subscriber);
+        }
+
+        void UpdateInMemoryCollection(ChatMember subscriber)
+        {
+            _subscribers.RemoveAll(x => x.Jid == subscriber.Jid);
+            _subscribers.Add(subscriber);
+        }
+
+        private void UpdateChatMemberInDataStore(ChatMember subscriber)
+        {
+            try
+            {
+                if (_repository != null)
+                    _repository.Update(subscriber);
+            }
+            catch (Exception)
+            {
+                if (Log.IsErrorEnabled)
+                    Log.ErrorFormat("Error updating chat member Jid:{0} Alias:{1} to repository.", subscriber.Jid, subscriber.Alias);
+            }
+        }
+
         public List<ChatMember> GetToListForSubscriber(string jid)
         {
-            return _subscribers.FindAll(x => x.Jid != jid);
+            return _subscribers.FindAll(x => x.Jid != jid && x.ActiveInChat);
         }
 
         public ChatMember LookUp(string jid)

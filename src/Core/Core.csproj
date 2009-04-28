@@ -87,6 +87,7 @@
     <Compile Include="Commands\JoinCommand.cs" />
     <Compile Include="Commands\LeaveCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="Commands\MuteCommand.cs" />
     <Compile Include="Commands\WhisperCommand.cs" />
     <Compile Include="DataAccess\ChatMemberRespository.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
