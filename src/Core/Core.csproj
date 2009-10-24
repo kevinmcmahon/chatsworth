@@ -44,19 +44,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\agsXMPP.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Antlr3.Runtime, Version=3.1.0.39271, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.DynamicProxy2, Version=2.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include="FluentNHibernate, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -64,9 +68,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=2.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -86,20 +94,24 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\JoinCommand.cs" />
     <Compile Include="Commands\LeaveCommand.cs" />
+    <Compile Include="Commands\LinksCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="Commands\MuteCommand.cs" />
     <Compile Include="Commands\WhisperCommand.cs" />
     <Compile Include="DataAccess\ChatMemberRespository.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="DataAccess\LinkLoggerRepository.cs" />
     <Compile Include="DataAccess\NHibernateRepository\NHibernateRepository.cs" />
     <Compile Include="DataAccess\NHibernateRepository\NHibernateSessionConfig.cs" />
     <Compile Include="DataAccess\NHibernateRepository\NHibernateSessionManager.cs" />
     <Compile Include="DataAccess\XMLRepository\SerializationHelper.cs" />
     <Compile Include="DataAccess\XMLRepository\XmlRepository.cs" />
     <Compile Include="Entity\ChatMember.cs" />
+    <Compile Include="Entity\LinkLog.cs" />
     <Compile Include="Entity\Mapping\ChatMemberMap.cs" />
     <Compile Include="Entity\Mapping\GeneratorHelper.cs" />
     <Compile Include="Entity\Mapping\IMapGenerator.cs" />
+    <Compile Include="Entity\Mapping\LinkLogMap.cs" />
     <Compile Include="Entity\ServerConfiguration.cs" />
     <Compile Include="ICommunicator.cs" />
     <Compile Include="IMemberDirectory.cs" />
@@ -107,7 +119,10 @@
     <Compile Include="MemberDirectory.cs" />
     <Compile Include="MessageHandlers\ChatMessageHandler.cs" />
     <Compile Include="MessageHandlers\CommandMessageHandler.cs" />
+    <Compile Include="ILinkLogger.cs" />
     <Compile Include="MessageHandlers\IMessageHandler.cs" />
+    <Compile Include="LinkLogger.cs" />
+    <Compile Include="MessageHandlers\LinkLoggerHandler.cs" />
     <Compile Include="MessageProcessor.cs" />
     <Compile Include="NullLogger.cs" />
     <Compile Include="OnMessageHandlerArgs.cs" />

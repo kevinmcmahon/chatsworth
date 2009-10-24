@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4963BACC-5837-4F8E-AB3B-34DE843E12F1}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -69,6 +69,7 @@
     <Compile Include="ChatsworthService.Designer.cs">
       <DependentUpon>ChatsworthService.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChatsworthServiceRunner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -107,4 +108,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

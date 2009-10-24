@@ -6,7 +6,7 @@ namespace Chatsworth.Core
 {
     public class MessageProcessor : IMessageProcessor
     {
-        private IMessageHandler[] _messageHandlers;
+        private readonly IMessageHandler[] _messageHandlers;
 
         public MessageProcessor(IMessageHandler[] handlers)
         {
@@ -15,10 +15,15 @@ namespace Chatsworth.Core
 
         public void Process(Message message)
         {
-            IMessageHandler handler = Array.Find(_messageHandlers, h => h.CanProcess(message));
+            IMessageHandler[] messageHandlers = Array.FindAll(_messageHandlers, h => h.CanProcess(message));
             
-            if(handler != null)
-                handler.ProcessMessage(message);
+            if (messageHandlers.Length > 0)
+            {
+                foreach (var handler in messageHandlers)
+                {
+                    handler.ProcessMessage(message);
+                }
+            }
         }
     }
 }

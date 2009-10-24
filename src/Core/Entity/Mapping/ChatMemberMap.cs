@@ -1,30 +1,23 @@
-﻿using System.Xml;
-using FluentNHibernate;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 
 namespace Chatsworth.Core.Entity
 {
-    public class ChatMemberMap : ClassMap<ChatMember>, IMapGenerator
+    public class ChatMemberMap : ClassMap<ChatMember>
     {
         public ChatMemberMap()
         {
-            WithTable("ChatMember");
+            Table("ChatMember");
 
             Id(x => x.Id).GeneratedBy.Identity();
 
             Map(x => x.Jid)
-                .CanNotBeNull();
+                .Not.Nullable();
 
             Map(x => x.Alias)
-                .CanNotBeNull();
+                .Not.Nullable();
 
             Map(x => x.ActiveInChat)
-                .CanNotBeNull();
-        }
-
-        public XmlDocument Generate()
-        {
-            return CreateMapping(new MappingVisitor());
+                .Not.Nullable();
         }
     }
 }

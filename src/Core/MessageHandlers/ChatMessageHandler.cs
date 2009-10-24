@@ -47,7 +47,10 @@ namespace Chatsworth.Core.MessageHandlers
 
         public bool CanProcess(Message message)
         {
-            return (message == null) ? false : true;
+            if (message == null)
+                return false;
+
+            return string.IsNullOrEmpty(CommandProcessor.GetCommandFromMessage(message.Body));
         }
     }
 }

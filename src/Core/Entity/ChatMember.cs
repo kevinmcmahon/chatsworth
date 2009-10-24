@@ -14,13 +14,13 @@ namespace Chatsworth.Core.Entity
             ActiveInChat = true;
         }
 
-        public int Id { get; set; }
-        public string Jid { get; set; }
-        public string Alias { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Jid { get; set; }
+        public virtual string Alias { get; set; }
 
-        public bool HasAlias { get { return Jid != Alias;} }
+        public virtual bool HasAlias { get { return Jid != Alias; } }
 
-        public bool ActiveInChat { get; set; }
+        public virtual bool ActiveInChat { get; set; }
     }
 
     public static class Extensions

@@ -69,7 +69,7 @@ namespace Chatsworth.UnitTests
         It should_call_can_process_on_the_handler = () => Assert.IsTrue(stubCannotProcessHandler.CanProcessCalled);
         It should_not_call_process_on_the_processor = () => Assert.IsFalse(stubCannotProcessHandler.ProcessMessageCalled);
     }
-
+    
     [Subject(typeof(MessageProcessor))]
     public class when_given_multiple_handlers: with_stub_message_handlers
     {
@@ -86,7 +86,7 @@ namespace Chatsworth.UnitTests
     }
 
     [Subject(typeof(MessageProcessor))]
-    public class when_given_multiple_handlers_where_first_handler_can_process_message : with_stub_message_handlers
+    public class when_given_multiple_handlers_where_first_handler_can_process_message_second_cannot_process : with_stub_message_handlers
     {
         Because of = () =>
         {
@@ -95,7 +95,7 @@ namespace Chatsworth.UnitTests
         };
 
         It should_call_can_process_on_the_first_handler = () => Assert.IsTrue(stubCanProcessHandler.CanProcessCalled);
-        It should_not_call_can_process_on_the_second_handler = () => Assert.IsFalse(stubCannotProcessHandler.CanProcessCalled);
+        It should_call_can_process_on_the_second_handler = () => Assert.IsTrue(stubCannotProcessHandler.CanProcessCalled);
         It should_not_call_process_on_the_second_handler = () => Assert.IsFalse(stubCannotProcessHandler.ProcessMessageCalled);
         It should_call_process_on_the_first_handler = () => Assert.IsTrue(stubCanProcessHandler.ProcessMessageCalled);
     }

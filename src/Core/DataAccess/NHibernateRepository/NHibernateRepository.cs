@@ -2,15 +2,27 @@
 
 namespace Chatsworth.Core.DataAccess
 {
+    /// <summary>
+    /// NHibernate repository implementation.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
         private readonly NHibernateSessionManager _sessionManager;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="sessionManager"></param>
         public NHibernateRepository(NHibernateSessionManager sessionManager)
         {
             _sessionManager = sessionManager;
         }
 
+        /// <summary>
+        /// Fetch all of type T
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<T> GetAll()
         {
             using (var session = _sessionManager.GetSession())
@@ -20,6 +32,10 @@ namespace Chatsworth.Core.DataAccess
             }
         }
 
+        /// <summary>
+        /// Saves instance
+        /// </summary>
+        /// <param name="instance"></param>
         public void Save(T instance)
         {
             using (var session = _sessionManager.GetSession())
@@ -30,6 +46,10 @@ namespace Chatsworth.Core.DataAccess
             }
         }
 
+        /// <summary>
+        /// Updates instance.
+        /// </summary>
+        /// <param name="instance"></param>
         public void Update(T instance)
         {
             using (var session = _sessionManager.GetSession())
@@ -40,6 +60,10 @@ namespace Chatsworth.Core.DataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes instance.
+        /// </summary>
+        /// <param name="instance"></param>
         public void Delete(T instance)
         {
             using (var session = _sessionManager.GetSession())
