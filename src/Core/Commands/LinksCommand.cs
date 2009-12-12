@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using agsXMPP.protocol.client;
 using Chatsworth.Core.Entity;
 
@@ -13,6 +14,13 @@ namespace Chatsworth.Core.Commands
         private readonly ICommunicator _communicator;
         private readonly IMemberDirectory _directory;
         private readonly ILinkLogger _linkLogger;
+        private static Regex regex = new Regex(
+      "/(?<Command>\\w+)\\s(?<LinkNum>\\d+)",
+    RegexOptions.IgnoreCase
+    | RegexOptions.CultureInvariant
+    | RegexOptions.IgnorePatternWhitespace
+    | RegexOptions.Compiled
+    );
 
         /// <summary>
         /// Ctor
@@ -26,6 +34,8 @@ namespace Chatsworth.Core.Commands
             _directory = directory;
             _linkLogger = linkLogger;
         }
+
+        #region ICommand Members
 
         /// <summary>
         /// Executes the command.
@@ -51,22 +61,43 @@ namespace Chatsworth.Core.Commands
             _communicator.SendMessage(member.Jid, sb.ToString());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string CommandName
         {
             get { return "links"; }
         }
 
+        #endregion
+
         private IEnumerable<LinkLog> RetrieveLinks(LinksCriteria criteria)
         {
-            return _linkLogger.GetAllLinkLogs();
+            return _linkLogger.GetLinks(criteria.NumberOfLinksRequested);
         }
 
         private LinksCriteria BuildLinkCommandParameters(Message message)
         {
-            return new LinksCriteria();
+            Match match = regex.Match(message.Body);
+
+            int linksRequested;
+
+            string linksRequestedString = match.Groups["LinkNum"].ToString();
+            LinksCriteria criteria = new LinksCriteria
+                                         {
+                                             NumberOfLinksRequested =
+                                                 int.TryParse(linksRequestedString, out linksRequested)
+                                                     ? linksRequested
+                                                     : 5
+                                         };
+
+            return criteria;
         }
     }
 
+    /// <summary>
+    /// Criteria for link reporting 
+    /// </summary>
     public class LinksCriteria
     {
         public int NumberOfLinksRequested { get; set; }

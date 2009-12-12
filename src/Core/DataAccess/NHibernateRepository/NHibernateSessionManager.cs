@@ -22,7 +22,6 @@ namespace Chatsworth.Core.DataAccess
         private ISessionFactory GetSessionFactory(string connectionString, string mappingAssembly)
         {
             return Fluently.Configure()
-                //.Database(SQLiteConfiguration.Standard.UsingFile("chatsworthdb.s3db"))
                 .Database(SQLiteConfiguration.Standard.ConnectionString(x=>x.Is(connectionString)))
                 .Mappings(m =>
                           m.FluentMappings

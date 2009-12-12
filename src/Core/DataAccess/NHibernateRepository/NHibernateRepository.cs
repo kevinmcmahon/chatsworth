@@ -19,13 +19,18 @@ namespace Chatsworth.Core.DataAccess
             _sessionManager = sessionManager;
         }
 
+        public NHibernateSessionManager SessionManager
+        {
+            get { return _sessionManager; }
+        }
+
         /// <summary>
         /// Fetch all of type T
         /// </summary>
         /// <returns></returns>
         public IEnumerable<T> GetAll()
         {
-            using (var session = _sessionManager.GetSession())
+            using (var session = SessionManager.GetSession())
             {
                 session.Flush();
                 return session.CreateCriteria(typeof (T)).List<T>();
@@ -38,7 +43,7 @@ namespace Chatsworth.Core.DataAccess
         /// <param name="instance"></param>
         public void Save(T instance)
         {
-            using (var session = _sessionManager.GetSession())
+            using (var session = SessionManager.GetSession())
             using (var trans = session.BeginTransaction())
             {
                 session.Save(instance);
@@ -52,7 +57,7 @@ namespace Chatsworth.Core.DataAccess
         /// <param name="instance"></param>
         public void Update(T instance)
         {
-            using (var session = _sessionManager.GetSession())
+            using (var session = SessionManager.GetSession())
             using (var trans = session.BeginTransaction())
             {
                 session.Update(instance);
@@ -66,7 +71,7 @@ namespace Chatsworth.Core.DataAccess
         /// <param name="instance"></param>
         public void Delete(T instance)
         {
-            using (var session = _sessionManager.GetSession())
+            using (var session = SessionManager.GetSession())
             using (var trans = session.BeginTransaction())
             {
                 session.Delete(instance);

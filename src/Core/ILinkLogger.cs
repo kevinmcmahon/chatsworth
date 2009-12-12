@@ -11,5 +11,6 @@ namespace Chatsworth.Core
         void SaveLog(LinkLog log);
         void AttachRepository(LinkLoggerRepository repository);
         ILog Log { get; set; }
+        IEnumerable<LinkLog> GetLinks(int numberOfLinks);
     }
 }

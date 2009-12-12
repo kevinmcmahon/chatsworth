@@ -5,6 +5,9 @@
 	<property name="corflags.dir" value="C:\Program Files\Microsoft SDKs\Windows\v6.0A\Bin"/>
 	<property name="x64libs.dir" value="lib\x64" />
 	<property name="sqlitedb.dir" value="src\Core\Db" />
+	<property name="msi.dir" value="${build.dir}\msi" />
+	<property name="devenv.dir" value="C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\" />
+	
 	
 	<!-- User targets -->
 	<target name="clean" description="Delete Automated Build artifacts">

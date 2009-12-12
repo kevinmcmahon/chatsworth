@@ -5,6 +5,9 @@ using log4net;
 
 namespace Chatsworth.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class LinkLogger : ILinkLogger
     {
         private LinkLoggerRepository _repository;
@@ -15,9 +18,15 @@ namespace Chatsworth.Core
             get { return _log; }
             set { _log = value; }
         }
+
         public IEnumerable<LinkLog> GetAllLinkLogs()
         {
             return _repository.GetAllLinks();
+        }
+
+        public IEnumerable<LinkLog> GetLinks(int numberOfLinks)
+        {
+            return _repository.GetLinks(numberOfLinks);
         }
 
         public void SaveLog(LinkLog linkLog)

@@ -8,7 +8,7 @@ namespace Chatsworth.Core.MessageHandlers
     public class LinkLoggerHandler : IMessageHandler
     {
         private readonly Regex _regEx;
-        private const string URL_PATTERN = @"((www\.|(http|https|ftp|news|file)+\:\/\/)[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])";
+        private const string URL_PATTERN = @"((www\.|(http|https|ftp|news|file)+\:\/\/)[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?_,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])";
         private readonly IMemberDirectory _directory;
         private ILinkLogger _linkLogger;
 
